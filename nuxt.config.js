@@ -32,7 +32,8 @@ export default {
     plugins: [
         '@/plugins/element-ui',
         '@/plugins/api',
-        { src: '@/plugins/vueTreeChart', ssr: false }
+        { src: '@/plugins/vueTreeChart', ssr: false },
+        '@/plugins/common'
     ],
     /*
      ** Nuxt.js dev-modules

@@ -29,6 +29,7 @@
               class="head-nav-sub-item w-100 f-s-14 t-center"
               v-for="(item0,index0) in item.sonList"
               :key="index0"
+              @click="goToUniverse(item0)"
             >{{item0.sonTitle}}</div>
           </li>
         </ul>
@@ -54,7 +55,6 @@ export default {
               sonTitle: "新手指引"
             },
             {
-              isRoute: true,
               sonTitle: "资料库"
             },
             {
@@ -70,7 +70,7 @@ export default {
               sonTitle: "海克斯战利品库"
             },
             {
-              isRoute: true,
+              routePath: "/universe",
               sonTitle: "英雄联盟宇宙"
             }
           ]
@@ -210,6 +210,12 @@ export default {
     },
     offShow() {
       this.submenu = false;
+    },
+    // 跳转到英雄联盟宇宙
+    goToUniverse(item) {
+      if (item.routePath) {
+        this.$router.push(item.routePath)
+      }
     }
   },
   mounted() {},

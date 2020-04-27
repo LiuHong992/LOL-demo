@@ -167,7 +167,6 @@ export default {
     // 悬浮框的显示
     showFloat(item, idx) {
       this.floatObj = item;
-      console.log(this.floatObj);
       this.floatNum = idx;
     },
     // 关闭悬浮框
@@ -205,16 +204,18 @@ export default {
     },
     // 英雄页跳转到英雄详情页
     jumpDetail(items) {
-      this.$router.push({
-        path: "/herodetail",
-        query: { heroId: items.heroId }
-      });
+      if (this.nav === "英雄名") {
+        this.$router.push({
+          path: "/herodetail",
+          query: { heroId: items.heroId }
+        });
+      }
     }
   },
   mounted() {
     if (this.infoList.length > 0) {
       this.showList = this.infoList;
-      console.log(this.showList);
+      // console.log(this.showList);
     }
   },
   watch: {

@@ -209,6 +209,34 @@
 }
 
 
+/* 左边距5px */
+
+.m-l-5 {
+    margin-left: 5px;
+}
+
+
+/* 右边距5px */
+
+.m-r-5 {
+    margin-right: 5px;
+}
+
+
+/* 下边距5px */
+
+.m-b-5 {
+    margin-bottom: 5px;
+}
+
+
+/* 上边距5px */
+
+.m-t-5 {
+    margin-top: 5px;
+}
+
+
 /* 左边距10px */
 
 .m-l-10 {
@@ -752,4 +780,13 @@
 
 .c999 {
     color: #999999;
+}
+
+
+/* 公共样式(lol小demo) */
+
+.colbox {
+    border: 1px solid #e1e1e1;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    background: #fff;
 }
