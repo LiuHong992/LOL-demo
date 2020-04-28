@@ -1,10 +1,10 @@
 <template>
   <div>
     <!-- 上方的图片轮播图 -->
-    <div class="swiper-img-container" ref="slider" v-if="stories.length>0">
+    <div class="swiper-img-container p-r" ref="slider" v-if="stories.length>0">
       <div class="swiper-wrapper">
         <div
-          class="swiper-slide"
+          class="swiper-slide swiper-no-swiping"
           v-for="(item,index) in stories"
           :key="index"
           :class="[activeIndex === index?'active-slide':'']"
@@ -14,17 +14,12 @@
             :class="[activeIndex === index?'active-slider':'']"
             :style="{'background-image':`url(${item.background.uri})`}"
           ></div>
+          <div class="texts" v-html="item.description" @click="handleClick(index)"></div>
         </div>
       </div>
+      <div class="swiper-button-prev" style="left:186px"></div>
+      <div class="swiper-button-next" style="right:170px"></div>
     </div>
-    <!-- 下方的问题内容轮播 -->
-    <!-- <div class="swiper-text-container" ref="slidertwo" v-if="stories.length>0">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="(item,index) in stories" :key="index">
-          <div class="texts" v-html="item.description"></div>
-        </div>
-      </div>
-    </div>-->
   </div>
 </template>
 
@@ -36,7 +31,7 @@ export default {
       // 轮播图实例
       swiperImg: null,
       // 第二个轮播图实例
-      swiperText: null,
+      // swiperText: null,
       // 当前选中的轮播图
       activeIndex: 0
     };
@@ -48,36 +43,57 @@ export default {
     }
   },
   components: {},
-  methods: {},
+  methods: {
+    // 文字点击事件
+    handleClick(idx) {
+      console.log(idx);
+      if (idx === this.activeIndex - 1) {
+        this.swiperImg.slidePrev();
+      } else if (idx === this.activeIndex + 1) {
+        this.swiperImg.slideNext();
+      }
+      console.log(idx);
+    }
+  },
   mounted() {
     setTimeout(() => {
       this.swiperImg = new Swiper(".swiper-img-container", {
         slidesPerView: 1,
         centeredSlides: true,
         loop: true,
+        noSwiping: true, //图片轮播图不能通过滑动图片切换
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev"
+        },
         loopAdditionalSlides: 1,
         slidesOffsetBefore: 300,
         slidesOffsetAfter: 300
       });
-      //   this.swiperText = new Swiper(".swiper-text-container", {
-      //     slidesPerView: 1,
-      //     centeredSlides: true,
-      //     loop: true,
-      //     controller: {
-      //       control: this.swiperImg //控制swiperImg
-      //     },
-      //     slidesOffsetBefore: 300
-      //   });
+      // this.swiperText = new Swiper(".swiper-text-container", {
+      //   slidesPerView: 1,
+      //   centeredSlides: true,
+      //   loop: true,
+      //   navigation: {
+      //     nextEl: ".swiper-button-next",
+      //     prevEl: ".swiper-button-prev"
+      //   },
+      //   controller: {
+      //     control: this.swiperImg //控制swiperImg
+      //   },
+      //   loopAdditionalSlides: 1,
+      //   slidesOffsetBefore: 300
+      // });
     }, 100);
   },
   watch: {
     "swiperImg.realIndex"(val) {
       this.activeIndex = val;
-    //   if (oldVal === 4) {
-    //     this.$nextTick(() => {
-    //       this.swiperImg.init(); // 再初始化swiper
-    //     });
-    //   }
+      //   if (oldVal === 4) {
+      //     this.$nextTick(() => {
+      //       this.swiperImg.init(); // 再初始化swiper
+      //     });
+      //   }
       console.log(val);
     }
   },
@@ -91,6 +107,8 @@ export default {
 .swiper-img-container {
   height: 315px;
   margin-top: 30px;
+  --swiper-navigation-color: #9c7e43; /* 单独设置按钮颜色 */
+  --swiper-navigation-size: 30px; /* 设置按钮大小 */
   .swiper-wrapper {
     .swiper-slide {
       .bg-img {
@@ -102,6 +120,13 @@ export default {
         background-position: 50% 50%;
         opacity: 1;
         background-size: cover;
+      }
+      .texts {
+        color: #c4b998;
+        font-size: 12px;
+        line-height: 1.4;
+        padding: 0 50px 20px;
+        position: relative;
       }
       .active-slider {
         filter: grayscale(0) brightness(1);
@@ -119,6 +144,8 @@ export default {
 .swiper-text-container {
   .swiper-wrapper {
     .swiper-slide {
+      width: 506px !important;
+      height: 180px;
     }
   }
 }
